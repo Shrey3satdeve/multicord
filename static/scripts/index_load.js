@@ -1,7 +1,16 @@
-
 var guildIndex = {}
+
+function refreshGuilds() {
+    return request("/api/guilds/refresh")
+}
+
+function loadGuilds() {
+    return request("/api/guilds")
+}
+
 window.onload = function() {
-    request("/api/guilds")
+    refreshGuilds()
+        .then(() => loadGuilds())
         .then(guilds => {
             const guildParent = dquery(".guild-container")
             guilds.forEach(function(guild) {
